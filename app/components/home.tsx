@@ -16,7 +16,7 @@ const HomeSection = () => (
         </Box> 
         <Hide below='md'>
           <Box>
-            <Image  boxSize={{base: 1, md: 'md'}} src='/xircus.png' />
+            <Image  boxSize={{base: 1, md: 'md'}} src='/xircus.png' alt='xircus-dev-logo' />
           </Box>
         </Hide>
       </SimpleGrid>
