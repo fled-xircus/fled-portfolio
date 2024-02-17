@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Text, HStack, Button, useColorMode, useMediaQuery, Divider, Spacer } from '@chakra-ui/react';
+import { Box, Flex, Link, Text, HStack, Button, useColorMode, useMediaQuery, Divider, Spacer, Avatar } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import AboutSection from './about';
@@ -19,6 +19,7 @@ function Content() {
       <Box px={{ base: 4, md: 20 }}>
         <Flex justifyContent="space-between" alignItems="center" mb={3} flexDirection={{ base: 'column', md: 'row' }}>
           <Flex justifyContent="space-between" alignItems="center">
+            <Avatar src='/xircus.png' mr={2} />
             <Text fontSize="xl" fontWeight="bold">dev.fled</Text>
             <Spacer/>
             {isSmallerThanMd && (

@@ -1,10 +1,10 @@
-import { Box, Flex, Heading, Text, VStack, HStack } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, VStack, HStack, Button, SimpleGrid, Textarea } from '@chakra-ui/react';
 
 const ContactsSection = () => (
   <Box>
-    <Heading as="h2" size="xl" mb={4}>Contacts</Heading>
-    <Flex>
+    <SimpleGrid columns={{ base: 1, md: 2 }} gap={10}>
       <VStack alignItems='flex-start'>
+        <Heading as="h2" size="xl" mb={4}>Contacts</Heading>
         <HStack alignItems='flex-start'>
           <Text fontWeight='bold'>Address: </Text>
           <Text>Purok 3b Reclusado, Apokon, Tagum City 8100</Text>
@@ -18,7 +18,12 @@ const ContactsSection = () => (
           <Text>aguelofledandree@gmail.com</Text>
         </HStack>
       </VStack>
-    </Flex>
+      <VStack justifyContent='center' gap={5}>
+        <Heading>Message Me!</Heading>
+        <Textarea></Textarea>
+        <Button>Send Message</Button>
+      </VStack>
+    </SimpleGrid>
   </Box>
 );
 
