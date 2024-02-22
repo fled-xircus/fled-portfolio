@@ -12,7 +12,7 @@ const HomeSection = () => (
             Xircus TON Developer
           </Text>
           <Text>Development • UI/UX Design</Text>  
-          </VStack>
+        </VStack>
         </Box> 
         <Hide below='md'>
           <Box>

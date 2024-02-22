@@ -15,7 +15,7 @@ function Content() {
   const toggleMenu = () => setIsOpen(!isOpen);
   const wallet = useWallet()
   const handleDisconnect = () => {
-    wallet.web3.eth.currentProvider.disconnect();
+    wallet.reset();
   };
 
 
@@ -39,9 +39,9 @@ function Content() {
               <Link href="#projects">Projects</Link>
               <Button variant='ghost' onClick={toggleColorMode} size="sm" leftIcon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}>
               </Button>
-              <VStack align='left'>
-                <Text fontSize="sm">Metamask Account</Text>
-                <Text fontSize="sm" noOfLines={1} isTruncated>
+              <VStack w='100px' align='left'>
+                <Text fontSize="sm">Metamask</Text>
+                <Text fontSize="xs" noOfLines={1} isTruncated>
                   {wallet.status === 'connected' && wallet.account}
                 </Text>
                 {wallet.status === 'connected' && (
@@ -64,10 +64,17 @@ function Content() {
           <Link href="#projects" mb={2}>Projects</Link>
           <Button variant='ghost' onClick={toggleColorMode} size="sm" mb={2} leftIcon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}>
           </Button>
-          <VStack w='full'>
-              <Text>Metamask Account</Text>
-              <Text textOverflow='ellipsis'>{wallet.status == 'connected' && wallet.account}</Text>
-              <Button onClick={wallet.connectMetamask}>Connect Metamask</Button>
+          <VStack w='100px' align='left'>
+            <Text fontSize="sm">Metamask Account</Text>
+            <Text fontSize="xs" noOfLines={1} isTruncated>
+              {wallet.status === 'connected' && wallet.account}
+            </Text>
+            {wallet.status === 'connected' && (
+              <Button onClick={handleDisconnect} size="sm">Disconnect</Button>
+            )}
+            {wallet.status !== 'connected' && (
+              <Button onClick={wallet.connectMetamask} size="sm">Connect to Metamask</Button>
+            )}
           </VStack>
         </Flex>
       )}
