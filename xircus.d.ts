@@ -1,0 +1,1 @@
+declare module "@xircus-web3/react";

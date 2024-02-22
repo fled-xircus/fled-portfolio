@@ -1,18 +1,23 @@
-import { Box, Flex, Link, Text, HStack, Button, useColorMode, useMediaQuery, Divider, Spacer, Avatar } from '@chakra-ui/react';
-import { SunIcon, MoonIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
-import AboutSection from './about';
-import ContactsSection from './contacts';
-import ProjectsSection from './projects';
-import HomeSection from './home';
-import { TbMenu2 } from "react-icons/tb";
+import { Box, Flex, Link, Text, HStack, Button, useColorMode, useMediaQuery, Divider, Spacer, Avatar, VStack } from '@chakra-ui/react';
+import { SunIcon, MoonIcon } from '@chakra-ui/icons'
+import { useState } from 'react'
+import AboutSection from './about'
+import ContactsSection from './contacts'
+import ProjectsSection from './projects'
+import HomeSection from './home'
+import { TbMenu2 } from "react-icons/tb"
+import { useWallet } from '@xircus-web3/react'
 
 function Content() {
   const { colorMode, toggleColorMode } = useColorMode();
   const [isSmallerThanMd] = useMediaQuery("(max-width: 768px)");
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
+  const wallet = useWallet()
+  const handleDisconnect = () => {
+    wallet.web3.eth.currentProvider.disconnect();
+  };
+
 
   return (
     <Box pt={5}>
@@ -32,9 +37,20 @@ function Content() {
               <Link href="#about">About</Link>
               <Link href="#contacts">Contacts</Link>
               <Link href="#projects">Projects</Link>
-              <Button onClick={toggleColorMode} size="sm" leftIcon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}>
-                {colorMode === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              <Button variant='ghost' onClick={toggleColorMode} size="sm" leftIcon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}>
               </Button>
+              <VStack align='left'>
+                <Text fontSize="sm">Metamask Account</Text>
+                <Text fontSize="sm" noOfLines={1} isTruncated>
+                  {wallet.status === 'connected' && wallet.account}
+                </Text>
+                {wallet.status === 'connected' && (
+                  <Button onClick={handleDisconnect} size="sm">Disconnect</Button>
+                )}
+                {wallet.status !== 'connected' && (
+                  <Button onClick={wallet.connectMetamask} size="sm">Connect to Metamask</Button>
+               )}
+              </VStack>
             </HStack>
           )}
         </Flex>
@@ -46,9 +62,13 @@ function Content() {
           <Link href="#about" mb={2}>About</Link>
           <Link href="#contacts" mb={2}>Contacts</Link>
           <Link href="#projects" mb={2}>Projects</Link>
-          <Button onClick={toggleColorMode} size="sm" mb={2} leftIcon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}>
-            {colorMode === 'dark' ? 'Light Mode' : 'Dark Mode'}
+          <Button variant='ghost' onClick={toggleColorMode} size="sm" mb={2} leftIcon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}>
           </Button>
+          <VStack w='full'>
+              <Text>Metamask Account</Text>
+              <Text textOverflow='ellipsis'>{wallet.status == 'connected' && wallet.account}</Text>
+              <Button onClick={wallet.connectMetamask}>Connect Metamask</Button>
+          </VStack>
         </Flex>
       )}
       <Box gap={5}>
